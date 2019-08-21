@@ -11,13 +11,13 @@ require (
 	github.com/ghodss/yaml v0.0.0-20180820084758-c7ce16629ff4 // indirect
 	github.com/go-openapi/spec v0.19.2 // indirect
 	github.com/pkg/errors v0.8.0
-	github.com/spf13/cobra v0.0.4
+	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.3
 	github.com/stretchr/testify v1.3.0
 	golang.org/x/text v0.3.2
 	k8s.io/api v0.0.0-20190820101204-3efd428ce51b
-	k8s.io/apimachinery v0.0.0-20190820074809-31b1e1ea64dc
-	k8s.io/client-go v0.0.0-20190820102012-2597db3f9d08
+	k8s.io/apimachinery v0.0.0-20190821142400-bb534aad565e
+	k8s.io/client-go v0.0.0-20190821142400-e484c9e80a37
 	sigs.k8s.io/kustomize v2.0.3+incompatible
 	sigs.k8s.io/yaml v1.1.0
 )
@@ -28,6 +28,6 @@ replace (
 	golang.org/x/sys => golang.org/x/sys v0.0.0-20190209173611-3b5209105503
 	golang.org/x/text => golang.org/x/text v0.3.1-0.20181227161524-e6919f6577db
 	k8s.io/api => k8s.io/api v0.0.0-20190820101204-3efd428ce51b
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20190820074809-31b1e1ea64dc
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20190820102012-2597db3f9d08
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20190821142400-bb534aad565e
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20190821142400-e484c9e80a37
 )
