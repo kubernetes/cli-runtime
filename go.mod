@@ -15,9 +15,9 @@ require (
 	github.com/spf13/pflag v1.0.3
 	github.com/stretchr/testify v1.3.0
 	golang.org/x/text v0.3.2
-	k8s.io/api v0.0.0-20190820101204-3efd428ce51b
+	k8s.io/api v0.0.0-20190822053644-6185379c914a
 	k8s.io/apimachinery v0.0.0-20190820074809-31b1e1ea64dc
-	k8s.io/client-go v0.0.0-20190820102012-2597db3f9d08
+	k8s.io/client-go v0.0.0-20190822054823-0a74433fb222
 	sigs.k8s.io/kustomize v2.0.3+incompatible
 	sigs.k8s.io/yaml v1.1.0
 )
@@ -27,7 +27,7 @@ replace (
 	golang.org/x/sync => golang.org/x/sync v0.0.0-20181108010431-42b317875d0f
 	golang.org/x/sys => golang.org/x/sys v0.0.0-20190209173611-3b5209105503
 	golang.org/x/text => golang.org/x/text v0.3.1-0.20181227161524-e6919f6577db
-	k8s.io/api => k8s.io/api v0.0.0-20190820101204-3efd428ce51b
+	k8s.io/api => k8s.io/api v0.0.0-20190822053644-6185379c914a
 	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20190820074809-31b1e1ea64dc
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20190820102012-2597db3f9d08
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20190822054823-0a74433fb222
 )
