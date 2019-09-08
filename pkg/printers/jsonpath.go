@@ -102,6 +102,7 @@ type JSONPathPrinter struct {
 	*jsonpath.JSONPath
 }
 
+// NewJSONPathPrinter is a function to format strings into JSONPathPrinter
 func NewJSONPathPrinter(tmpl string) (*JSONPathPrinter, error) {
 	j := jsonpath.New("out")
 	if err := j.Parse(tmpl); err != nil {
@@ -141,7 +142,8 @@ func (j *JSONPathPrinter) PrintObj(obj runtime.Object, w io.Writer) error {
 		fmt.Fprintf(buf, "Error executing template: %v. Printing more information for debugging the template:\n", err)
 		fmt.Fprintf(buf, "\ttemplate was:\n\t\t%v\n", j.rawTemplate)
 		fmt.Fprintf(buf, "\tobject given to jsonpath engine was:\n\t\t%#v\n\n", queryObj)
-		return fmt.Errorf("error executing jsonpath %q: %v\n", j.rawTemplate, buf.String())
+		return fmt.Errorf("error executing jsonpath %q: %v", j.rawTemplate, buf.String())
+
 	}
 	return nil
 }
