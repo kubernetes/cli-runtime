@@ -20,10 +20,10 @@ require (
 	github.com/stretchr/testify v1.4.0
 	golang.org/x/text v0.3.2
 	gopkg.in/yaml.v2 v2.2.7
-	k8s.io/api v0.0.0-20200118233722-7aecbd569fd4
-	k8s.io/apimachinery v0.0.0-20200118233534-b615468efe04
-	k8s.io/client-go v0.0.0-20200118233946-a432bd9ba7da
-	k8s.io/kube-openapi v0.0.0-20191107075043-30be4d16710a
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
+	k8s.io/kube-openapi v0.0.0-20200121204235-bf4fb3bd569c
 	sigs.k8s.io/kustomize v2.0.3+incompatible
 	sigs.k8s.io/yaml v1.1.0
 )
@@ -31,7 +31,8 @@ require (
 replace (
 	golang.org/x/sys => golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a // pinned to release-branch.go1.13
 	golang.org/x/tools => golang.org/x/tools v0.0.0-20190821162956-65e3620a7ae7 // pinned to release-branch.go1.13
-	k8s.io/api => k8s.io/api v0.0.0-20200118233722-7aecbd569fd4
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20200118233534-b615468efe04
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20200118233946-a432bd9ba7da
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
