@@ -344,7 +344,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/crypto",
-			"Rev": "60c769a6c586"
+			"Rev": "bac4c82f6975"
 		},
 		{
 			"ImportPath": "golang.org/x/exp",
@@ -436,7 +436,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/client-go",
-			"Rev": "ce0298a60b3c"
+			"Rev": "39a9bc1d5a52"
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
