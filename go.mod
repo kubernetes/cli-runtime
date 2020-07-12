@@ -19,16 +19,16 @@ require (
 	github.com/stretchr/testify v1.4.0
 	golang.org/x/text v0.3.3
 	gopkg.in/yaml.v2 v2.2.8
-	k8s.io/api v0.0.0-20200711010801-702e5dfa819c
-	k8s.io/apimachinery v0.0.0-20200711010416-8e134319f815
-	k8s.io/client-go v0.0.0-20200713130838-7392b9857a1d
+	k8s.io/api v0.0.0-20200713130235-be360156aa6a
+	k8s.io/apimachinery v0.0.0-20200713125709-8e7d6bb9bd6d
+	k8s.io/client-go v0.0.0-20200713130841-505a1f443178
 	k8s.io/kube-openapi v0.0.0-20200427153329-656914f816f9
 	sigs.k8s.io/kustomize v2.0.3+incompatible
 	sigs.k8s.io/yaml v1.2.0
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20200711010801-702e5dfa819c
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20200711010416-8e134319f815
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20200713130838-7392b9857a1d
+	k8s.io/api => k8s.io/api v0.0.0-20200713130235-be360156aa6a
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20200713125709-8e7d6bb9bd6d
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20200713130841-505a1f443178
 )
