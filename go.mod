@@ -8,8 +8,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/emicklei/go-restful v2.9.5+incompatible // indirect
 	github.com/evanphx/json-patch v4.9.0+incompatible
-	github.com/go-openapi/jsonreference v0.19.3 // indirect
-	github.com/go-openapi/spec v0.19.3 // indirect
 	github.com/googleapis/gnostic v0.4.1
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
 	github.com/mailru/easyjson v0.7.0 // indirect
@@ -19,16 +17,17 @@ require (
 	github.com/stretchr/testify v1.4.0
 	golang.org/x/text v0.3.3
 	gopkg.in/yaml.v2 v2.2.8
-	k8s.io/api v0.0.0-20201106042650-3e589e9d21e6
-	k8s.io/apimachinery v0.0.0-20201105042036-d67967d70958
-	k8s.io/client-go v0.0.0-20201107122455-a2cda5636dc9
-	k8s.io/kube-openapi v0.0.0-20200923155610-8b5066479488
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
+	k8s.io/kube-openapi v0.0.0-20201107163737-74b467f3a622
 	sigs.k8s.io/kustomize v2.0.3+incompatible
 	sigs.k8s.io/yaml v1.2.0
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20201106042650-3e589e9d21e6
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20201105042036-d67967d70958
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20201107122455-a2cda5636dc9
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
