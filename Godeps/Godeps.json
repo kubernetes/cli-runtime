@@ -183,10 +183,6 @@
 			"Rev": "e10d5fee7954"
 		},
 		{
-			"ImportPath": "github.com/docker/spdystream",
-			"Rev": "449fdfce4d96"
-		},
-		{
 			"ImportPath": "github.com/docopt/docopt-go",
 			"Rev": "ee0de3bc6815"
 		},
@@ -535,6 +531,10 @@
 			"Rev": "v1.1.2"
 		},
 		{
+			"ImportPath": "github.com/moby/spdystream",
+			"Rev": "v0.2.0"
+		},
+		{
 			"ImportPath": "github.com/modern-go/concurrent",
 			"Rev": "bacd9c7ef1dd"
 		},
@@ -840,15 +840,15 @@
 		},
 		{
 			"ImportPath": "k8s.io/api",
-			"Rev": "c873f2e8ab25"
+			"Rev": "cfb031d9922e"
 		},
 		{
 			"ImportPath": "k8s.io/apimachinery",
-			"Rev": "460d10991a52"
+			"Rev": "d656fe577b19"
 		},
 		{
 			"ImportPath": "k8s.io/client-go",
-			"Rev": "b72204b2445d"
+			"Rev": "c8e0107904fe"
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
