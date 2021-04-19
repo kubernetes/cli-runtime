@@ -964,7 +964,7 @@
 		},
 		{
 			"ImportPath": "k8s.io/client-go",
-			"Rev": "6be0785e0e32"
+			"Rev": "307e3a38a167"
 		},
 		{
 			"ImportPath": "k8s.io/gengo",
@@ -996,11 +996,11 @@
 		},
 		{
 			"ImportPath": "sigs.k8s.io/kustomize/api",
-			"Rev": "v0.8.5"
+			"Rev": "v0.8.8"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/kustomize/kyaml",
-			"Rev": "v0.10.15"
+			"Rev": "v0.10.17"
 		},
 		{
 			"ImportPath": "sigs.k8s.io/structured-merge-diff/v4",
