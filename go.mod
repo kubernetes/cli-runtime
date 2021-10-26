@@ -6,7 +6,7 @@ go 1.16
 
 require (
 	github.com/davecgh/go-spew v1.1.1
-	github.com/evanphx/json-patch v4.11.0+incompatible
+	github.com/evanphx/json-patch v4.12.0+incompatible
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.5 // indirect
 	github.com/go-openapi/swag v0.19.14 // indirect
@@ -18,9 +18,9 @@ require (
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/text v0.3.6
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20211022203536-7d47955f01bd
-	k8s.io/apimachinery v0.0.0-20211022203306-153f11a7f300
-	k8s.io/client-go v0.0.0-20211022203833-56656ba0e04f
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
 	k8s.io/kube-openapi v0.0.0-20210817084001-7fbd8d59e5b8
 	sigs.k8s.io/kustomize/api v0.8.11
 	sigs.k8s.io/kustomize/kyaml v0.11.0
@@ -28,7 +28,8 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20211022203536-7d47955f01bd
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20211022203306-153f11a7f300
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20211022203833-56656ba0e04f
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
