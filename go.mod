@@ -7,7 +7,6 @@ go 1.16
 require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/evanphx/json-patch v4.12.0+incompatible
-	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.5 // indirect
 	github.com/go-openapi/swag v0.19.14 // indirect
 	github.com/google/uuid v1.1.2
@@ -18,17 +17,18 @@ require (
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/text v0.3.7
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20211111072600-2d1f8bde0d9a
-	k8s.io/apimachinery v0.0.0-20211111072039-19377c9f105d
-	k8s.io/client-go v0.0.0-20211111073227-e627be7959e7
-	k8s.io/kube-openapi v0.0.0-20211105084753-ee342a809c29
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
+	k8s.io/kube-openapi v0.0.0-20211115234752-e816edb12b65
 	sigs.k8s.io/kustomize/api v0.10.1
 	sigs.k8s.io/kustomize/kyaml v0.13.0
 	sigs.k8s.io/yaml v1.2.0
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20211111072600-2d1f8bde0d9a
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20211111072039-19377c9f105d
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20211111073227-e627be7959e7
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
