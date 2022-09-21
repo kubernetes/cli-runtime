@@ -17,7 +17,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/api v0.0.0-20220921024056-79091dac6a32
 	k8s.io/apimachinery v0.0.0-20220920023906-f8159af4957e
-	k8s.io/client-go v0.0.0-20220920024403-f7c9c639d451
+	k8s.io/client-go v0.0.0-20220921144450-2fd4aac19007
 	k8s.io/kube-openapi v0.0.0-20220803162953-67bda5d908f1
 	k8s.io/utils v0.0.0-20220728103510-ee6ede2d64ed
 	sigs.k8s.io/kustomize/api v0.12.1
@@ -26,13 +26,11 @@ require (
 )
 
 require (
-	github.com/PuerkitoBio/purell v1.1.1 // indirect
-	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
-	github.com/go-openapi/jsonreference v0.19.5 // indirect
+	github.com/go-openapi/jsonreference v0.20.0 // indirect
 	github.com/go-openapi/swag v0.19.14 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -72,5 +70,5 @@ require (
 replace (
 	k8s.io/api => k8s.io/api v0.0.0-20220921024056-79091dac6a32
 	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20220920023906-f8159af4957e
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20220920024403-f7c9c639d451
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20220921144450-2fd4aac19007
 )
