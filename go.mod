@@ -15,11 +15,11 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.0
-	golang.org/x/text v0.3.7
+	golang.org/x/text v0.5.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20221202175609-115016874c21
-	k8s.io/apimachinery v0.0.0-20221202174959-050f59113830
-	k8s.io/client-go v0.0.0-20221202180432-3dd56d254dd3
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
 	k8s.io/kube-openapi v0.0.0-20211115234752-e816edb12b65
 	sigs.k8s.io/kustomize/api v0.10.1
 	sigs.k8s.io/kustomize/kyaml v0.13.0
@@ -27,7 +27,8 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20221202175609-115016874c21
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20221202174959-050f59113830
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20221202180432-3dd56d254dd3
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
