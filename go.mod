@@ -8,16 +8,16 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/evanphx/json-patch v4.12.0+incompatible
 	github.com/google/gnostic v0.5.7-v3refs
-	github.com/google/uuid v1.1.2
+	github.com/google/uuid v1.3.0
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.0
-	golang.org/x/text v0.8.0
+	golang.org/x/text v0.7.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20230506010734-a66c7f8978d7
-	k8s.io/apimachinery v0.0.0-20230506005852-75464993cc05
-	k8s.io/client-go v0.0.0-20230506012701-d32b1d7c08e5
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
 	k8s.io/kube-openapi v0.0.0-20220803162953-67bda5d908f1
 	k8s.io/utils v0.0.0-20220728103510-ee6ede2d64ed
 	sigs.k8s.io/kustomize/api v0.12.1
@@ -55,10 +55,10 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/xlab/treeprint v1.1.0 // indirect
 	go.starlark.net v0.0.0-20200306205701-8dd3e2ee1dd5 // indirect
-	golang.org/x/net v0.8.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
-	golang.org/x/sys v0.6.0 // indirect
-	golang.org/x/term v0.6.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/term v0.5.0 // indirect
 	golang.org/x/time v0.0.0-20220210224613-90d013bbcef8 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
@@ -70,7 +70,8 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20230506010734-a66c7f8978d7
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20230506005852-75464993cc05
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20230506012701-d32b1d7c08e5
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
