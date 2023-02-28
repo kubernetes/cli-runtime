@@ -109,6 +109,8 @@ type Builder struct {
 
 	schema ContentValidator
 
+	pathVisitor PathVisitor
+
 	// fakeClientFn is used for testing
 	fakeClientFn FakeClientFunc
 }
@@ -166,8 +168,8 @@ type resourceTuple struct {
 
 type FakeClientFunc func(version schema.GroupVersion) (RESTClient, error)
 
-func NewFakeBuilder(fakeClientFn FakeClientFunc, restMapper RESTMapperFunc, categoryExpander CategoryExpanderFunc) *Builder {
-	ret := newBuilder(nil, restMapper, categoryExpander)
+func NewFakeBuilder(fakeClientFn FakeClientFunc, restMapper RESTMapperFunc, categoryExpander CategoryExpanderFunc, pathVisitor PathVisitor) *Builder {
+	ret := newBuilder(nil, restMapper, categoryExpander, pathVisitor)
 	ret.fakeClientFn = fakeClientFn
 	return ret
 }
@@ -176,12 +178,13 @@ func NewFakeBuilder(fakeClientFn FakeClientFunc, restMapper RESTMapperFunc, cate
 // internal or unstructured must be specified.
 // TODO: Add versioned client (although versioned is still lossy)
 // TODO remove internal and unstructured mapper and instead have them set the negotiated serializer for use in the client
-func newBuilder(clientConfigFn ClientConfigFunc, restMapper RESTMapperFunc, categoryExpander CategoryExpanderFunc) *Builder {
+func newBuilder(clientConfigFn ClientConfigFunc, restMapper RESTMapperFunc, categoryExpander CategoryExpanderFunc, pathVisitor PathVisitor) *Builder {
 	return &Builder{
 		clientConfigFn:     clientConfigFn,
 		restMapperFn:       restMapper,
 		categoryExpanderFn: categoryExpander,
 		requireObject:      true,
+		pathVisitor:        pathVisitor,
 	}
 }
 
@@ -217,6 +220,7 @@ func NewBuilder(restClientGetter RESTClientGetter) *Builder {
 		restClientGetter.ToRESTConfig,
 		restClientGetter.ToRESTMapper,
 		(&cachingCategoryExpanderFunc{delegate: categoryExpanderFn}).ToCategoryExpander,
+		&FilePathVisitor{},
 	)
 }
 
@@ -425,7 +429,7 @@ func (b *Builder) Path(recursive bool, paths ...string) *Builder {
 			continue
 		}
 
-		visitors, err := ExpandPathsToFileVisitors(b.mapper, p, recursive, FileExtensions, b.schema)
+		visitors, err := b.pathVisitor.ExpandPathsToFileVisitors(b.mapper, p, recursive, FileExtensions, b.schema)
 		if err != nil {
 			b.errs = append(b.errs, fmt.Errorf("error reading %q: %v", p, err))
 		}

@@ -255,6 +255,45 @@ func (v *URLVisitor) Visit(fn VisitorFunc) error {
 	return v.StreamVisitor.Visit(fn)
 }
 
+type FilePathVisitor struct {
+}
+
+// ExpandPathsToFileVisitors will return a slice of FileVisitors that will handle files from the provided path.
+// After FileVisitors open the files, they will pass an io.Reader to a StreamVisitor to do the reading. (stdin
+// is also taken care of). Paths argument also accepts a single file, and will return a single visitor
+func (*FilePathVisitor) ExpandPathsToFileVisitors(mapper InfoMapper, paths string, recursive bool, extensions []string, schema ContentValidator) ([]Visitor, error) {
+	var visitors []Visitor
+	err := filepath.Walk(paths, func(path string, fi os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if fi.IsDir() {
+			if path != paths && !recursive {
+				return filepath.SkipDir
+			}
+			return nil
+		}
+		// Don't check extension if the filepath was passed explicitly
+		if path != paths && ignoreFile(path, extensions) {
+			return nil
+		}
+
+		visitor := &FileVisitor{
+			Path:          path,
+			StreamVisitor: NewStreamVisitor(nil, mapper, path, schema),
+		}
+
+		visitors = append(visitors, visitor)
+		return nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+	return visitors, nil
+}
+
 // readHttpWithRetries tries to http.Get the v.URL retries times before giving up.
 func readHttpWithRetries(get httpget, duration time.Duration, u string, attempts int) (io.ReadCloser, error) {
 	var err error
@@ -472,42 +511,6 @@ func FileVisitorForSTDIN(mapper *mapper, schema ContentValidator) Visitor {
 	}
 }
 
-// ExpandPathsToFileVisitors will return a slice of FileVisitors that will handle files from the provided path.
-// After FileVisitors open the files, they will pass an io.Reader to a StreamVisitor to do the reading. (stdin
-// is also taken care of). Paths argument also accepts a single file, and will return a single visitor
-func ExpandPathsToFileVisitors(mapper *mapper, paths string, recursive bool, extensions []string, schema ContentValidator) ([]Visitor, error) {
-	var visitors []Visitor
-	err := filepath.Walk(paths, func(path string, fi os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		if fi.IsDir() {
-			if path != paths && !recursive {
-				return filepath.SkipDir
-			}
-			return nil
-		}
-		// Don't check extension if the filepath was passed explicitly
-		if path != paths && ignoreFile(path, extensions) {
-			return nil
-		}
-
-		visitor := &FileVisitor{
-			Path:          path,
-			StreamVisitor: NewStreamVisitor(nil, mapper, path, schema),
-		}
-
-		visitors = append(visitors, visitor)
-		return nil
-	})
-
-	if err != nil {
-		return nil, err
-	}
-	return visitors, nil
-}
-
 // FileVisitor is wrapping around a StreamVisitor, to handle open/close files
 type FileVisitor struct {
 	Path string
@@ -549,10 +552,10 @@ type StreamVisitor struct {
 }
 
 // NewStreamVisitor is a helper function that is useful when we want to change the fields of the struct but keep calls the same.
-func NewStreamVisitor(r io.Reader, mapper *mapper, source string, schema ContentValidator) *StreamVisitor {
+func NewStreamVisitor(r io.Reader, m interface{}, source string, schema ContentValidator) *StreamVisitor {
 	return &StreamVisitor{
 		Reader: r,
-		mapper: mapper,
+		mapper: m.(*mapper),
 		Source: source,
 		Schema: schema,
 	}

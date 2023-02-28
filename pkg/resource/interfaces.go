@@ -101,3 +101,8 @@ type Visitor interface {
 // A nil returned indicates to accept an error to continue loops even when errors happen.
 // This is useful for ignoring certain kinds of errors or aggregating errors in some way.
 type VisitorFunc func(*Info, error) error
+type InfoMapper interface{}
+
+type PathVisitor interface {
+	ExpandPathsToFileVisitors(mapper InfoMapper, paths string, recursive bool, extensions []string, schema ContentValidator) ([]Visitor, error)
+}
