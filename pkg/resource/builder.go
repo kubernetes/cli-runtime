@@ -204,10 +204,10 @@ func (noopClientGetter) ToRESTMapper() (meta.RESTMapper, error) {
 
 // NewLocalBuilder returns a builder that is configured not to create REST clients and avoids asking the server for results.
 func NewLocalBuilder() *Builder {
-	return NewBuilder(noopClientGetter{}).Local()
+	return NewBuilder(noopClientGetter{}, &FilePathVisitor{}).Local()
 }
 
-func NewBuilder(restClientGetter RESTClientGetter) *Builder {
+func NewBuilder(restClientGetter RESTClientGetter, pathVisitor PathVisitor) *Builder {
 	categoryExpanderFn := func() (restmapper.CategoryExpander, error) {
 		discoveryClient, err := restClientGetter.ToDiscoveryClient()
 		if err != nil {
@@ -220,7 +220,7 @@ func NewBuilder(restClientGetter RESTClientGetter) *Builder {
 		restClientGetter.ToRESTConfig,
 		restClientGetter.ToRESTMapper,
 		(&cachingCategoryExpanderFunc{delegate: categoryExpanderFn}).ToCategoryExpander,
-		&FilePathVisitor{},
+		pathVisitor,
 	)
 }
 

@@ -138,7 +138,7 @@ func (o *ResourceBuilderFlags) AddFlags(flagset *pflag.FlagSet) {
 func (o *ResourceBuilderFlags) ToBuilder(restClientGetter RESTClientGetter, resources []string) ResourceFinder {
 	namespace, enforceNamespace, namespaceErr := restClientGetter.ToRawKubeConfigLoader().Namespace()
 
-	builder := resource.NewBuilder(restClientGetter).
+	builder := resource.NewBuilder(restClientGetter, &resource.FilePathVisitor{}).
 		NamespaceParam(namespace).DefaultNamespace()
 
 	if o.AllNamespaces != nil {
