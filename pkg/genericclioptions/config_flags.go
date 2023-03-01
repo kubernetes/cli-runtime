@@ -32,6 +32,7 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/restmapper"
 	"k8s.io/client-go/tools/clientcmd"
+	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"k8s.io/client-go/util/homedir"
 	utilpointer "k8s.io/utils/pointer"
 )
@@ -73,6 +74,8 @@ type RESTClientGetter interface {
 }
 
 var _ RESTClientGetter = &ConfigFlags{}
+
+type KubeConfigLoader func(path string) (*clientcmdapi.Config, error)
 
 // ConfigFlags composes the set of values necessary
 // for obtaining a REST client config
@@ -122,6 +125,8 @@ type ConfigFlags struct {
 	// Allows increasing qps used for discovery, this is useful
 	// in clusters with many registered resources
 	discoveryQPS float32
+
+	KubeConfigLoader KubeConfigLoader
 }
 
 // ToRESTConfig implements RESTClientGetter.
@@ -152,6 +157,10 @@ func (f *ConfigFlags) ToRawKubeConfigLoader() clientcmd.ClientConfig {
 
 func (f *ConfigFlags) toRawKubeConfigLoader() clientcmd.ClientConfig {
 	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+	if f.KubeConfigLoader != nil {
+		loadingRules.KubeConfigLoader = f.KubeConfigLoader
+	}
+
 	// use the standard defaults for this client command
 	// DEPRECATED: remove and replace with something more accurate
 	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
