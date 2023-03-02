@@ -27,6 +27,7 @@ import (
 	"github.com/spf13/pflag"
 
 	"k8s.io/apimachinery/pkg/api/meta"
+	"k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/discovery"
 	diskcached "k8s.io/client-go/discovery/cached/disk"
 	"k8s.io/client-go/rest"
@@ -76,6 +77,7 @@ type RESTClientGetter interface {
 var _ RESTClientGetter = &ConfigFlags{}
 
 type KubeConfigLoader func(path string) (*clientcmdapi.Config, error)
+type PathVisitorLoader func() resource.PathVisitor
 
 // ConfigFlags composes the set of values necessary
 // for obtaining a REST client config
@@ -126,7 +128,8 @@ type ConfigFlags struct {
 	// in clusters with many registered resources
 	discoveryQPS float32
 
-	KubeConfigLoader KubeConfigLoader
+	KubeConfigLoader  KubeConfigLoader
+	PathVisitorLoader PathVisitorLoader
 }
 
 // ToRESTConfig implements RESTClientGetter.
