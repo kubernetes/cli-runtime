@@ -262,10 +262,17 @@ func (b *Builder) FilenameParam(enforceNamespace bool, filenameOptions *Filename
 			}
 			b.URL(defaultHttpGetAttempts, url)
 		default:
-			matches, err := expandIfFilePattern(s)
-			if err != nil {
-				b.errs = append(b.errs, err)
-				continue
+			var matches []string
+			if _, fpOk := b.pathVisitor.(*FilePathVisitor); fpOk {
+				var err error
+				matches, err = expandIfFilePattern(s)
+				if err != nil {
+					b.errs = append(b.errs, err)
+					continue
+				}
+			} else {
+				// TODO: Better support for non-FilePathVisitor.
+				matches = []string{s}
 			}
 			if !recursive && len(matches) == 1 {
 				b.singleItemImplied = true
@@ -1217,7 +1224,6 @@ func HasNames(args []string) (bool, error) {
 // or the filename if it is a specific filename and not a pattern.
 // If the input is a pattern and it yields no result it will result in an error.
 func expandIfFilePattern(pattern string) ([]string, error) {
-	// TODO: Support non-file path vistors.
 	if _, err := os.Stat(pattern); os.IsNotExist(err) {
 		matches, err := filepath.Glob(pattern)
 		if err == nil && len(matches) == 0 {
