@@ -419,14 +419,16 @@ func (b *Builder) Stream(r io.Reader, name string) *Builder {
 // ignored (but logged at V(2)).
 func (b *Builder) Path(recursive bool, paths ...string) *Builder {
 	for _, p := range paths {
-		_, err := os.Stat(p)
-		if os.IsNotExist(err) {
-			b.errs = append(b.errs, fmt.Errorf(pathNotExistError, p))
-			continue
-		}
-		if err != nil {
-			b.errs = append(b.errs, fmt.Errorf("the path %q cannot be accessed: %v", p, err))
-			continue
+		if _, fpOk := b.pathVisitor.(*FilePathVisitor); fpOk {
+			_, err := os.Stat(p)
+			if os.IsNotExist(err) {
+				b.errs = append(b.errs, fmt.Errorf(pathNotExistError, p))
+				continue
+			}
+			if err != nil {
+				b.errs = append(b.errs, fmt.Errorf("the path %q cannot be accessed: %v", p, err))
+				continue
+			}
 		}
 
 		visitors, err := b.pathVisitor.ExpandPathsToFileVisitors(b.mapper, p, recursive, FileExtensions, b.schema)
@@ -1215,6 +1217,7 @@ func HasNames(args []string) (bool, error) {
 // or the filename if it is a specific filename and not a pattern.
 // If the input is a pattern and it yields no result it will result in an error.
 func expandIfFilePattern(pattern string) ([]string, error) {
+	// TODO: Support non-file path vistors.
 	if _, err := os.Stat(pattern); os.IsNotExist(err) {
 		matches, err := filepath.Glob(pattern)
 		if err == nil && len(matches) == 0 {
