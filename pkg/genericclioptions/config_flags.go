@@ -26,6 +26,7 @@ import (
 
 	"github.com/spf13/pflag"
 
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/discovery"
@@ -78,6 +79,9 @@ var _ RESTClientGetter = &ConfigFlags{}
 
 type KubeConfigLoader func(path string) (*clientcmdapi.Config, error)
 type PathVisitorLoader func() resource.PathVisitor
+type HandleSecretFromFileSources func(secret *corev1.Secret, fileSources []string) error
+type HandleConfigMapFromFileSources func(configMap *corev1.ConfigMap, fileSources []string) error
+type HandleConfigMapFromEnvFileSources func(configMap *corev1.ConfigMap, envFileSources []string) error
 
 // ConfigFlags composes the set of values necessary
 // for obtaining a REST client config
@@ -130,6 +134,10 @@ type ConfigFlags struct {
 
 	KubeConfigLoader  KubeConfigLoader
 	PathVisitorLoader PathVisitorLoader
+
+	HandleSecretFromFileSources       HandleSecretFromFileSources
+	HandleConfigMapFromFileSources    HandleConfigMapFromFileSources
+	HandleConfigMapFromEnvFileSources HandleConfigMapFromEnvFileSources
 }
 
 // ToRESTConfig implements RESTClientGetter.
