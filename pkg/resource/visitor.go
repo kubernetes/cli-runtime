@@ -258,6 +258,10 @@ func (v *URLVisitor) Visit(fn VisitorFunc) error {
 type FilePathVisitor struct {
 }
 
+func (*FilePathVisitor) FileVisitorForSTDIN(builder *Builder) Visitor {
+	return FileVisitorForSTDIN(builder.mapper, builder.schema)
+}
+
 // ExpandPathsToFileVisitors will return a slice of FileVisitors that will handle files from the provided path.
 // After FileVisitors open the files, they will pass an io.Reader to a StreamVisitor to do the reading. (stdin
 // is also taken care of). Paths argument also accepts a single file, and will return a single visitor

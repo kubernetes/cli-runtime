@@ -105,4 +105,5 @@ type InfoMapper interface{}
 
 type PathVisitor interface {
 	ExpandPathsToFileVisitors(mapper InfoMapper, paths string, recursive bool, extensions []string, schema ContentValidator) ([]Visitor, error)
+	FileVisitorForSTDIN(builder *Builder) Visitor
 }

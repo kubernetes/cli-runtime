@@ -393,7 +393,7 @@ func (b *Builder) Stdin() *Builder {
 		b.errs = append(b.errs, StdinMultiUseError)
 	}
 	b.stdinInUse = true
-	b.paths = append(b.paths, FileVisitorForSTDIN(b.mapper, b.schema))
+	b.paths = append(b.paths, b.pathVisitor.FileVisitorForSTDIN(b))
 	return b
 }
 
@@ -1193,6 +1193,10 @@ func (b *Builder) Do() *Result {
 	}
 	r.visitor = NewDecoratedVisitor(r.visitor, helpers...)
 	return r
+}
+
+func (b *Builder) NewStreamVisitorHelper(newStreamVisitor func(r io.Reader, m interface{}, source string, schema ContentValidator) *StreamVisitor, reader io.Reader) *StreamVisitor {
+	return newStreamVisitor(reader, b.mapper, constSTDINstr, b.schema)
 }
 
 // SplitResourceArgument splits the argument with commas and returns unique
