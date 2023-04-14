@@ -5,7 +5,6 @@ module k8s.io/cli-runtime
 go 1.20
 
 require (
-	github.com/davecgh/go-spew v1.1.1
 	github.com/evanphx/json-patch v4.12.0+incompatible
 	github.com/google/gnostic v0.5.7-v3refs
 	github.com/google/go-cmp v0.5.9
@@ -17,8 +16,8 @@ require (
 	golang.org/x/text v0.8.0
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/api v0.0.0-20230413214513-e2bb673563f3
-	k8s.io/apimachinery v0.0.0-20230413213732-71d667e55043
-	k8s.io/client-go v0.0.0-20230413215200-4e89310f6ea6
+	k8s.io/apimachinery v0.0.0-20230414053554-40ea93bb2f46
+	k8s.io/client-go v0.0.0-20230414055356-1dc92da6638c
 	k8s.io/klog/v2 v2.90.1
 	k8s.io/kube-openapi v0.0.0-20230308215209-15aac26d736a
 	k8s.io/utils v0.0.0-20230209194617-a36077c30491
@@ -28,6 +27,7 @@ require (
 )
 
 require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
@@ -69,6 +69,6 @@ require (
 
 replace (
 	k8s.io/api => k8s.io/api v0.0.0-20230413214513-e2bb673563f3
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20230413213732-71d667e55043
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20230413215200-4e89310f6ea6
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20230414053554-40ea93bb2f46
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20230414055356-1dc92da6638c
 )
