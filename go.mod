@@ -15,9 +15,9 @@ require (
 	github.com/stretchr/testify v1.8.2
 	golang.org/x/text v0.9.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20230424214209-9dec43fa7a26
-	k8s.io/apimachinery v0.0.0-20230424213653-150a158d04ab
-	k8s.io/client-go v0.0.0-20230424215815-e846cbee0dd6
+	k8s.io/api v0.0.0-20230424214213-e93fc0e43e75
+	k8s.io/apimachinery v0.0.0-20230424213653-0db4b4996746
+	k8s.io/client-go v0.0.0-20230424215824-d2b87849d5e7
 	k8s.io/klog/v2 v2.90.1
 	k8s.io/kube-openapi v0.0.0-20230308215209-15aac26d736a
 	k8s.io/utils v0.0.0-20230209194617-a36077c30491
@@ -37,7 +37,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/btree v1.0.1 // indirect
-	github.com/google/gofuzz v1.1.0 // indirect
+	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7 // indirect
 	github.com/imdario/mergo v0.3.6 // indirect
@@ -68,7 +68,7 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20230424214209-9dec43fa7a26
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20230424213653-150a158d04ab
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20230424215815-e846cbee0dd6
+	k8s.io/api => k8s.io/api v0.0.0-20230424214213-e93fc0e43e75
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20230424213653-0db4b4996746
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20230424215824-d2b87849d5e7
 )
