@@ -8,7 +8,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/evanphx/json-patch v4.12.0+incompatible
 	github.com/google/gnostic v0.5.7-v3refs
-	github.com/google/uuid v1.1.2
+	github.com/google/uuid v1.3.0
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/pflag v1.0.5
@@ -16,8 +16,8 @@ require (
 	golang.org/x/text v0.8.0
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/api v0.0.0-20230513010431-273129d3df41
-	k8s.io/apimachinery v0.0.0-20230513005956-6b8613c85238
-	k8s.io/client-go v0.0.0-20230513011627-4aa6151f9be0
+	k8s.io/apimachinery v0.0.0-20230523181811-c2a4808f5a24
+	k8s.io/client-go v0.0.0-20230523183204-81aa33ed764a
 	k8s.io/kube-openapi v0.0.0-20220328201542-3ee0da9b0b42
 	k8s.io/utils v0.0.0-20220210201930-3a6ce19ff2f9
 	sigs.k8s.io/kustomize/api v0.11.4
@@ -71,6 +71,6 @@ require (
 
 replace (
 	k8s.io/api => k8s.io/api v0.0.0-20230513010431-273129d3df41
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20230513005956-6b8613c85238
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20230513011627-4aa6151f9be0
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20230523181811-c2a4808f5a24
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20230523183204-81aa33ed764a
 )
