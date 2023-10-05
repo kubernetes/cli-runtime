@@ -12,13 +12,13 @@ require (
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.3
 	golang.org/x/sync v0.3.0
 	golang.org/x/text v0.13.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20231010190924-5eb44ad6f962
-	k8s.io/apimachinery v0.0.0-20231010190649-3bbde9f6ea88
-	k8s.io/client-go v0.0.0-20231010191310-b4ee45cc0a2a
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
 	k8s.io/klog/v2 v2.100.1
 	k8s.io/kube-openapi v0.0.0-20230905202853-d090da108d2f
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
@@ -69,7 +69,8 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20231010190924-5eb44ad6f962
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20231010190649-3bbde9f6ea88
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20231010191310-b4ee45cc0a2a
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
