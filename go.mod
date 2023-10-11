@@ -10,6 +10,7 @@ require (
 	github.com/google/go-cmp v0.5.9
 	github.com/google/uuid v1.3.0
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
+	github.com/moby/term v0.0.0-20221205130635-1aeaba878587
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.3
@@ -18,7 +19,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/api v0.0.0-20231011070906-133964c1133a
 	k8s.io/apimachinery v0.0.0-20231011070637-1ca6c696c8e4
-	k8s.io/client-go v0.0.0-20231011071243-cf4002bbbf85
+	k8s.io/client-go v0.0.0-20231011150411-57d597c1d633
 	k8s.io/klog/v2 v2.100.1
 	k8s.io/kube-openapi v0.0.0-20230905202853-d090da108d2f
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
@@ -28,6 +29,7 @@ require (
 )
 
 require (
+	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
@@ -71,5 +73,5 @@ require (
 replace (
 	k8s.io/api => k8s.io/api v0.0.0-20231011070906-133964c1133a
 	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20231011070637-1ca6c696c8e4
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20231011071243-cf4002bbbf85
+	k8s.io/client-go => k8s.io/client-go v0.0.0-20231011150411-57d597c1d633
 )
