@@ -233,10 +233,10 @@ honnef.co/go/tools v0.0.0-20190102054323-c2f93a96b099/go.mod h1:rf3lG4BRIbNafJWh
 honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=
 k8s.io/api v0.0.0-20231012231205-fd486f224bc0 h1:Dyf005sUyLZsSR8GjNRNXlxD1Dc+on8GcRlUT+FrECY=
 k8s.io/api v0.0.0-20231012231205-fd486f224bc0/go.mod h1:/2uK7tkP+XFH/VCZby5ZvOXnCRWACRm1evMd1x8f55A=
-k8s.io/apimachinery v0.0.0-20231012230749-e04f17b08d1d h1:Xf//U+I14fMOY9MKNfTdN9OY4IY2UKD6T4OPWKdysUA=
-k8s.io/apimachinery v0.0.0-20231012230749-e04f17b08d1d/go.mod h1:rmXxFscUaicYcLy9laCS6Y0pVztcz7vbFNT+u/IlhPI=
-k8s.io/client-go v0.0.0-20231012231734-bc7002f524b2 h1:G1b+oDbl41XwrHmfkSp4oxedK0h8d9XPj9EIgEX5Caw=
-k8s.io/client-go v0.0.0-20231012231734-bc7002f524b2/go.mod h1:64qDoJsfClh7H2GyxlrnNSv74ATARqsmtaznb0dmmss=
+k8s.io/apimachinery v0.0.0-20231014214926-e0ab1cf45503 h1:rwpccECeeGhXjS0v6Rf0lfxxLWjZIzCnxrprCaodXKg=
+k8s.io/apimachinery v0.0.0-20231014214926-e0ab1cf45503/go.mod h1:rmXxFscUaicYcLy9laCS6Y0pVztcz7vbFNT+u/IlhPI=
+k8s.io/client-go v0.0.0-20231014231314-46e82c57b2e7 h1:WY/E3F9Ji5lg0dVbr7TlvzDTmEdDRQsQu7PVCoAEPoI=
+k8s.io/client-go v0.0.0-20231014231314-46e82c57b2e7/go.mod h1:DhipJgD5EUeAu+8PEmTrL90uYOb1OcNukLCFJTsoVoM=
 k8s.io/klog/v2 v2.100.1 h1:7WCHKK6K8fNhTqfBhISHQ97KrnJNFZMcQvKp7gP/tmg=
 k8s.io/klog/v2 v2.100.1/go.mod h1:y1WjHnz7Dj687irZUWR/WLkLc5N1YHtjLdmgWjndZn0=
 k8s.io/kube-openapi v0.0.0-20230918164632-68afd615200d h1:/CFeJBjBrZvHX09rObS2+2iEEDevMWYc1v3aIYAjIYI=
