@@ -14,12 +14,12 @@ require (
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/sync v0.3.0
+	golang.org/x/sync v0.4.0
 	golang.org/x/text v0.13.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20231214011710-3da949756c6e
-	k8s.io/apimachinery v0.0.0-20231214011457-aa9a6c8873ce
-	k8s.io/client-go v0.0.0-20231214012015-feecac4b447f
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
 	k8s.io/klog/v2 v2.110.1
 	k8s.io/kube-openapi v0.0.0-20231113174909-778a5567bc1e
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
@@ -59,7 +59,7 @@ require (
 	go.starlark.net v0.0.0-20230525235612-a134d8f9ddca // indirect
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/oauth2 v0.10.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/term v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
@@ -71,7 +71,8 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20231214011710-3da949756c6e
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20231214011457-aa9a6c8873ce
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20231214012015-feecac4b447f
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
