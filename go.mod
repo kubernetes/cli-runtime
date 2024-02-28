@@ -17,9 +17,9 @@ require (
 	golang.org/x/sync v0.5.0
 	golang.org/x/text v0.14.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20240221202343-ffee488e7bd8
-	k8s.io/apimachinery v0.0.0-20240221202133-0f2e9357997f
-	k8s.io/client-go v0.0.0-20240221202651-8c4efe8d079e
+	k8s.io/api v0.30.0-alpha.3
+	k8s.io/apimachinery v0.30.0-alpha.3
+	k8s.io/client-go v0.30.0-alpha.3
 	k8s.io/klog/v2 v2.120.1
 	k8s.io/kube-openapi v0.0.0-20231113174909-778a5567bc1e
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
@@ -71,7 +71,7 @@ require (
 )
 
 replace (
-	k8s.io/api => k8s.io/api v0.0.0-20240221202343-ffee488e7bd8
-	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20240221202133-0f2e9357997f
-	k8s.io/client-go => k8s.io/client-go v0.0.0-20240221202651-8c4efe8d079e
+	k8s.io/api => k8s.io/api v0.30.0-alpha.3
+	k8s.io/apimachinery => k8s.io/apimachinery v0.30.0-alpha.3
+	k8s.io/client-go => k8s.io/client-go v0.30.0-alpha.3
 )
