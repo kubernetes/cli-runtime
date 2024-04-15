@@ -17,9 +17,9 @@ require (
 	golang.org/x/sync v0.6.0
 	golang.org/x/text v0.14.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20240418173402-5975d5e5bda6
-	k8s.io/apimachinery v0.0.0-20240418133208-0ee3e6150890
-	k8s.io/client-go v0.0.0-20240422173645-5b2b83af7254
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
 	k8s.io/klog/v2 v2.120.1
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
@@ -40,6 +40,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/btree v1.0.1 // indirect
+	github.com/google/cel-go v0.20.1
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7 // indirect
@@ -68,4 +69,11 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
+)
+
+replace (
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
