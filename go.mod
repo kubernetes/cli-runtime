@@ -8,7 +8,7 @@ require (
 	github.com/evanphx/json-patch v4.12.0+incompatible
 	github.com/google/gnostic-models v0.6.8
 	github.com/google/go-cmp v0.6.0
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.3.1
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
 	github.com/moby/term v0.0.0-20221205130635-1aeaba878587
 	github.com/spf13/cobra v1.7.0
@@ -17,9 +17,9 @@ require (
 	golang.org/x/sync v0.6.0
 	golang.org/x/text v0.14.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20240423013409-039b247b85af
-	k8s.io/apimachinery v0.0.0-20240423013216-bb8822152cab
-	k8s.io/client-go v0.0.0-20240423013650-47f558294cb9
+	k8s.io/api v0.0.0
+	k8s.io/apimachinery v0.0.0
+	k8s.io/client-go v0.0.0
 	k8s.io/klog/v2 v2.120.1
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
@@ -68,4 +68,11 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
+)
+
+replace (
+	k8s.io/api => ../api
+	k8s.io/apimachinery => ../apimachinery
+	k8s.io/cli-runtime => ../cli-runtime
+	k8s.io/client-go => ../client-go
 )
