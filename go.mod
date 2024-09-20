@@ -19,9 +19,9 @@ require (
 	golang.org/x/text v0.17.0
 	gopkg.in/evanphx/json-patch.v4 v4.12.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.0.0-20240912033524-9dc1a952bda9
-	k8s.io/apimachinery v0.0.0-20240912032824-4e174c5e3655
-	k8s.io/client-go v0.0.0-20240912034400-c5e16f8d68e8
+	k8s.io/api v0.0.0-20240918001733-e14a61a8c7c2
+	k8s.io/apimachinery v0.0.0-20240919081406-f7615f37d717
+	k8s.io/client-go v0.0.0-20240920162441-40a93af7883a
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20240827152857-f7e401e7b4c2
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8
