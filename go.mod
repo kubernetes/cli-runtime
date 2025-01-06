@@ -20,9 +20,9 @@ require (
 	golang.org/x/sync v0.10.0
 	golang.org/x/text v0.21.0
 	gopkg.in/evanphx/json-patch.v4 v4.12.0
-	k8s.io/api v0.0.0-20241220201724-9603cdf39dd3
-	k8s.io/apimachinery v0.0.0-20241218214440-307a3ddd3cae
-	k8s.io/client-go v0.0.0-20250103162209-2ad95cfec907
+	k8s.io/api v0.0.0-20250106201850-018f9a59fc40
+	k8s.io/apimachinery v0.0.0-20250106201545-3e8e52d6a125
+	k8s.io/client-go v0.0.0-20250106202309-ca1e525bb47b
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/kube-openapi v0.0.0-20241212222426-2c72e554b1e7
 	k8s.io/utils v0.0.0-20241104100929-3ea5e8cea738
@@ -60,7 +60,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
-	golang.org/x/net v0.30.0 // indirect
+	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/oauth2 v0.23.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/term v0.27.0 // indirect
