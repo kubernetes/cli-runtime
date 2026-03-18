@@ -19,11 +19,11 @@ require (
 	golang.org/x/sync v0.19.0
 	golang.org/x/text v0.33.0
 	gopkg.in/evanphx/json-patch.v4 v4.13.0
-	k8s.io/api v0.0.0-20260318160010-913796feea53
-	k8s.io/apimachinery v0.0.0-20260317234939-27f467019a4e
-	k8s.io/client-go v0.0.0-20260318160710-6c2138477663
+	k8s.io/api v0.0.0-20260318195839-1ee4dbfb376b
+	k8s.io/apimachinery v0.0.0-20260318195418-729062d58854
+	k8s.io/client-go v0.0.0-20260318200515-2fb6b9cac00d
 	k8s.io/klog/v2 v2.140.0
-	k8s.io/kube-openapi v0.0.0-20260304202019-5b3e3fdb0acf
+	k8s.io/kube-openapi v0.0.0-20260317180543-43fb72c5454a
 	k8s.io/utils v0.0.0-20260210185600-b8788abfbbc2
 	sigs.k8s.io/kustomize/api v0.21.1
 	sigs.k8s.io/kustomize/kyaml v0.21.1
@@ -55,7 +55,6 @@ require (
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/mod v0.32.0 // indirect
 	golang.org/x/net v0.49.0 // indirect
 	golang.org/x/oauth2 v0.34.0 // indirect
 	golang.org/x/sys v0.40.0 // indirect
@@ -68,3 +67,5 @@ require (
 	sigs.k8s.io/randfill v1.0.0 // indirect
 	sigs.k8s.io/structured-merge-diff/v6 v6.3.2 // indirect
 )
+
+replace k8s.io/streaming => k8s.io/streaming v0.0.0-20260409181516-ff6889be5347
