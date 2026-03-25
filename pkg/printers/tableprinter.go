@@ -32,6 +32,10 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 )
 
+// cellBreakChars are characters that cause cell value truncation.
+// Formfeed is included because tabwriter treats it as a newline.
+const cellBreakChars = "\f\n\r"
+
 var _ ResourcePrinter = &HumanReadablePrinter{}
 
 type printHandler struct {
@@ -184,53 +188,94 @@ func printTable(table *metav1.Table, output io.Writer, options PrintOptions) err
 			if first {
 				first = false
 			} else {
-				fmt.Fprint(output, "\t")
+				output.Write([]byte{'\t'}) //nolint:errcheck
 			}
-			fmt.Fprint(output, strings.ToUpper(column.Name))
+			io.WriteString(output, strings.ToUpper(column.Name)) //nolint:errcheck
 		}
-		fmt.Fprintln(output)
+		output.Write([]byte{'\n'}) //nolint:errcheck
 	}
-	for _, row := range table.Rows {
+
+	numColDefs := len(table.ColumnDefinitions)
+	// rowBuf accumulates tab-separated cell values for each row,
+	// reducing per-cell Write calls from ~3 (tab + value + truncation)
+	// down to 1 per row in the common case (no special characters).
+	// 40 bytes per column is a heuristic based on typical kubectl output:
+	// cell values range from ~5 bytes ("Ready") to ~45 bytes (FQDNs).
+	rowBuf := make([]byte, 0, numColDefs*40)
+
+	// When writing to a tabwriter with RememberWidths, flush periodically
+	// to bound memory usage. After the first flush the tabwriter remembers
+	// column widths, so subsequent flushes produce consistently aligned output.
+	// For small tables (< 100 rows) or non-tabwriter outputs, we skip this.
+	tw, isTabwriter := output.(*tabwriter.Writer)
+	const flushInterval = 100
+
+	for ri, row := range table.Rows {
+		rowBuf = rowBuf[:0]
 		first := true
 		for i, cell := range row.Cells {
-			if i >= len(table.ColumnDefinitions) {
+			if i >= numColDefs {
 				// https://issue.k8s.io/66379
 				// don't panic in case of bad output from the server, with more cells than column definitions
 				break
 			}
-			column := table.ColumnDefinitions[i]
-			if !options.Wide && column.Priority != 0 {
+			if !options.Wide && table.ColumnDefinitions[i].Priority != 0 {
 				continue
 			}
 			if first {
 				first = false
 			} else {
-				fmt.Fprint(output, "\t")
+				rowBuf = append(rowBuf, '\t')
 			}
 			if cell != nil {
 				switch val := cell.(type) {
 				case string:
-					print := val
-					truncated := false
-					// Truncate at the first newline, carriage return or formfeed
-					// (treated as a newline by tabwriter).
-					breakchar := strings.IndexAny(print, "\f\n\r")
-					if breakchar >= 0 {
-						truncated = true
-						print = print[:breakchar]
-					}
-					WriteEscaped(output, print)
-					if truncated {
-						fmt.Fprint(output, "...")
-					}
+					rowBuf = appendCellValue(output, rowBuf, val)
 				default:
-					WriteEscaped(output, fmt.Sprint(val))
+					rowBuf = appendCellValue(output, rowBuf, fmt.Sprint(val))
 				}
 			}
 		}
-		fmt.Fprintln(output)
+		rowBuf = append(rowBuf, '\n')
+		output.Write(rowBuf) //nolint:errcheck
+
+		if isTabwriter && (ri+1)%flushInterval == 0 {
+			tw.Flush() //nolint:errcheck
+		}
 	}
 	return nil
+}
+
+// appendCellValue appends a cell's display text to rowBuf. For the common
+// case (no special characters), this is a simple append with zero allocations.
+// When the value contains control characters or escape sequences, it flushes
+// the buffer, writes the sanitized value directly, and returns an empty buffer.
+func appendCellValue(w io.Writer, buf []byte, val string) []byte {
+	// Fast path: scan for characters that need special handling.
+	// cellBreakChars cause truncation; \x1b needs escaping.
+	// The vast majority of cell values contain neither.
+	idx := strings.IndexAny(val, cellSpecialChars)
+	if idx < 0 {
+		return append(buf, val...)
+	}
+
+	// Slow path: flush accumulated buffer, then handle the special value.
+	if len(buf) > 0 {
+		w.Write(buf) //nolint:errcheck
+		buf = buf[:0]
+	}
+
+	// Truncate at the first break character (newline, carriage return,
+	// or formfeed — which tabwriter treats as a newline).
+	breakchar := strings.IndexAny(val, cellBreakChars)
+	if breakchar >= 0 {
+		WriteEscaped(w, val[:breakchar]) //nolint:errcheck
+		io.WriteString(w, "...")         //nolint:errcheck
+	} else {
+		// No break chars, but contains terminal-unsafe chars that need escaping.
+		WriteEscaped(w, val) //nolint:errcheck
+	}
+	return buf
 }
 
 type cellValueFunc func(metav1.TableRow) (interface{}, error)

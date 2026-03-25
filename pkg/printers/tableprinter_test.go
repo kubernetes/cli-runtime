@@ -18,7 +18,9 @@ package printers
 
 import (
 	"bytes"
+	"fmt"
 	"regexp"
+	"strings"
 	"testing"
 
 	corev1 "k8s.io/api/core/v1"
@@ -700,6 +702,44 @@ func TestPrintUnstructuredObject(t *testing.T) {
 		if !matches {
 			t.Errorf("wanted:\n%s\ngot:\n%s", test.expected, out)
 		}
+	}
+}
+
+// TestPrintTable_LargeRowCount verifies that the optimized printTable
+// produces correct output for large tables (the primary optimization target).
+func TestPrintTable_LargeRowCount(t *testing.T) {
+	columns := []metav1.TableColumnDefinition{
+		{Name: "Name", Type: "string"},
+		{Name: "Status", Type: "string"},
+		{Name: "Age", Type: "string"},
+	}
+	rowCount := 500
+	rows := make([]metav1.TableRow, rowCount)
+	for i := range rows {
+		rows[i] = metav1.TableRow{Cells: []interface{}{
+			fmt.Sprintf("pod-%d", i), "Running", "5d",
+		}}
+	}
+	table := &metav1.Table{
+		ColumnDefinitions: columns,
+		Rows:              rows,
+	}
+	out := &bytes.Buffer{}
+	printer := NewTablePrinter(PrintOptions{})
+	if err := printer.PrintObj(table, out); err != nil {
+		t.Fatalf("PrintObj error: %v", err)
+	}
+	lines := bytes.Count(out.Bytes(), []byte("\n"))
+	if lines != rowCount+1 { // +1 for header
+		t.Errorf("expected %d lines, got %d", rowCount+1, lines)
+	}
+	// Verify first and last data lines contain expected content
+	got := out.String()
+	if !strings.Contains(got, "pod-0") {
+		t.Error("output missing first row")
+	}
+	if !strings.Contains(got, fmt.Sprintf("pod-%d", rowCount-1)) {
+		t.Error("output missing last row")
 	}
 }
 
