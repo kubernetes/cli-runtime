@@ -17,6 +17,7 @@ limitations under the License.
 package printers
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"reflect"
@@ -35,6 +36,11 @@ import (
 // cellBreakChars are characters that cause cell value truncation.
 // Formfeed is included because tabwriter treats it as a newline.
 const cellBreakChars = "\f\n\r"
+
+// flushInterval is the number of rows between tabwriter flushes when
+// streaming a large table. Flushing bounds memory while preserving
+// alignment via tabwriter.RememberWidths after the first flush.
+const flushInterval = 100
 
 var _ ResourcePrinter = &HumanReadablePrinter{}
 
@@ -174,6 +180,56 @@ func (h *HumanReadablePrinter) PrintObj(obj runtime.Object, output io.Writer) er
 // for wide columns and filtered rows. It filters out rows that are Completed. You should call
 // decorateTable if you receive a table from a remote server before calling printTable.
 func printTable(table *metav1.Table, output io.Writer, options PrintOptions) error {
+	numColDefs := len(table.ColumnDefinitions)
+
+	// When writing to a tabwriter we flush periodically (see below) to bound
+	// memory. Because tabwriter's RememberWidths can only grow column widths
+	// on future flushes — not retroactively re-pad rows already written — we
+	// pre-scan all rows to learn the ultimate max cell width per column. We
+	// then pad either the header (with headers) or the first data row
+	// (NoHeaders) so the first flush sets widths matching the ultimate max.
+	// Without this, a wider cell appearing after row flushInterval causes
+	// misalignment. Width comparisons use byte length because tabwriter
+	// measures columns in bytes, not runes.
+	var maxCellWidths []int
+	tw, isTabwriter := output.(*tabwriter.Writer)
+	if isTabwriter && len(table.Rows) > 0 {
+		maxCellWidths = make([]int, numColDefs)
+		for _, row := range table.Rows {
+			for i, cell := range row.Cells {
+				if i >= numColDefs {
+					break
+				}
+				if !options.Wide && table.ColumnDefinitions[i].Priority != 0 {
+					continue
+				}
+				if cell == nil {
+					continue
+				}
+				var l int
+				if s, ok := cell.(string); ok {
+					l = len(s)
+				} else {
+					l = len(fmt.Sprint(cell))
+				}
+				if l > maxCellWidths[i] {
+					maxCellWidths[i] = l
+				}
+			}
+		}
+	}
+
+	// Find the last visible column so we can skip padding it — padding the
+	// final column would leave trailing whitespace without any alignment
+	// benefit (tabwriter doesn't right-pad the last column for data rows).
+	lastVisibleCol := -1
+	for i, column := range table.ColumnDefinitions {
+		if !options.Wide && column.Priority != 0 {
+			continue
+		}
+		lastVisibleCol = i
+	}
+
 	if !options.NoHeaders {
 		// avoid printing headers if we have no rows to display
 		if len(table.Rows) == 0 {
@@ -181,7 +237,7 @@ func printTable(table *metav1.Table, output io.Writer, options PrintOptions) err
 		}
 
 		first := true
-		for _, column := range table.ColumnDefinitions {
+		for i, column := range table.ColumnDefinitions {
 			if !options.Wide && column.Priority != 0 {
 				continue
 			}
@@ -190,12 +246,17 @@ func printTable(table *metav1.Table, output io.Writer, options PrintOptions) err
 			} else {
 				output.Write([]byte{'\t'}) //nolint:errcheck
 			}
-			io.WriteString(output, strings.ToUpper(column.Name)) //nolint:errcheck
+			name := strings.ToUpper(column.Name)
+			io.WriteString(output, name) //nolint:errcheck
+			if i != lastVisibleCol && i < len(maxCellWidths) {
+				if pad := maxCellWidths[i] - len(name); pad > 0 {
+					output.Write(bytes.Repeat([]byte{' '}, pad)) //nolint:errcheck
+				}
+			}
 		}
 		output.Write([]byte{'\n'}) //nolint:errcheck
 	}
 
-	numColDefs := len(table.ColumnDefinitions)
 	// rowBuf accumulates tab-separated cell values for each row,
 	// reducing per-cell Write calls from ~3 (tab + value + truncation)
 	// down to 1 per row in the common case (no special characters).
@@ -204,11 +265,16 @@ func printTable(table *metav1.Table, output io.Writer, options PrintOptions) err
 	rowBuf := make([]byte, 0, numColDefs*40)
 
 	// When writing to a tabwriter with RememberWidths, flush periodically
-	// to bound memory usage. After the first flush the tabwriter remembers
-	// column widths, so subsequent flushes produce consistently aligned output.
-	// For small tables (< 100 rows) or non-tabwriter outputs, we skip this.
-	tw, isTabwriter := output.(*tabwriter.Writer)
-	const flushInterval = 100
+	// (flushInterval) to bound memory usage. After the first flush the
+	// tabwriter remembers column widths, so subsequent flushes produce
+	// consistently aligned output. For small tables or non-tabwriter
+	// outputs, no flushing happens here.
+	//
+	// NoHeaders mode: the header path above primes column widths by
+	// padding header cells to maxCellWidths. Without a header to prime
+	// widths, we instead pad the first data row's non-final cells using
+	// the same pre-scanned widths.
+	padFirstRow := isTabwriter && options.NoHeaders && len(maxCellWidths) > 0
 
 	for ri, row := range table.Rows {
 		rowBuf = rowBuf[:0]
@@ -227,12 +293,25 @@ func printTable(table *metav1.Table, output io.Writer, options PrintOptions) err
 			} else {
 				rowBuf = append(rowBuf, '\t')
 			}
+			// Track byte length of the cell string we're about to
+			// write so we can pad to maxCellWidths without measuring
+			// through rowBuf (appendCellValue's slow path flushes
+			// rowBuf directly, making post-write measurement unsafe).
+			cellLen := 0
 			if cell != nil {
+				var cellStr string
 				switch val := cell.(type) {
 				case string:
-					rowBuf = appendCellValue(output, rowBuf, val)
+					cellStr = val
 				default:
-					rowBuf = appendCellValue(output, rowBuf, fmt.Sprint(val))
+					cellStr = fmt.Sprint(val)
+				}
+				cellLen = len(cellStr)
+				rowBuf = appendCellValue(output, rowBuf, cellStr)
+			}
+			if padFirstRow && ri == 0 && i != lastVisibleCol && i < len(maxCellWidths) {
+				if pad := maxCellWidths[i] - cellLen; pad > 0 {
+					rowBuf = append(rowBuf, bytes.Repeat([]byte{' '}, pad)...)
 				}
 			}
 		}
